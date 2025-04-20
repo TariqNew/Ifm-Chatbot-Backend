@@ -20,8 +20,8 @@ This is the **Nest.js backend** for our AI-powered Ifm Chatbot System (Institute
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/school-chatbot-backend.git
-cd school-chatbot-backend
+git clone https://github.com/yourusername/Ifm-Chatbot-Backend.git
+cd Ifm-Chatbot-Backend
 
 # Install dependencies
 npm install
