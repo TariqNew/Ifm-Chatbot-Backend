@@ -1,8 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SearchService } from './search.service';
 import { CreateSearchDto } from './dto/create-search.dto';
 import { UpdateSearchDto } from './dto/update-search.dto';
-import { query } from 'express';
+import { User } from '../users/entities/user.entity';
 
 @Controller('search')
 export class SearchController {
@@ -12,9 +12,9 @@ export class SearchController {
   create(@Body() createSearchDto: CreateSearchDto) {
     return this.searchService.create(createSearchDto);
   }
-  @Get('/search')
-  search(@Param('q') username: string) {
-    return this.searchService.userSearch(username);
+  @Get('/users')
+  search(@Query('q') q: string): Promise<User[]> {
+    return this.searchService.userSearch(q);  
   }
 
   @Get(':id')

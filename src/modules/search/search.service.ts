@@ -11,12 +11,11 @@ export class SearchService {
   create(createSearchDto: CreateSearchDto) {
     return 'This action adds a new search';
   }
-  async  userSearch(q:string){
-    return this.entityManager.createQueryBuilder(User,'user').where('LIKE(user.fullname) LIKE(:name)',{
+  async  userSearch(q:string):Promise<User[]>{
+    const users = await this.entityManager.createQueryBuilder(User,'u').where('u.fullName LIKE :name',{
       name:`%${q}%`,
-    })
-    // getMany();
-  
+    }).getMany();
+    return users;
   }
   findAll() {
     return `This action returns all search`;
