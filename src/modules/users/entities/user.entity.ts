@@ -8,7 +8,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255 })
+  @Column({ length: 255, nullable: true }) //if null means user anynonymous
   fullName: string;
 
   @Column({ unique: true })

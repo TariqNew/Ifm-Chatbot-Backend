@@ -18,7 +18,7 @@ export class Message {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text' }) 
   content: string;
 
   @Column({ type: 'enum', enum: SenderType })
