@@ -14,8 +14,7 @@ export class UsersService {
 
   // Create a new user
   async create(createUserDto: CreateUserDto) {
-    try {
-      this.logger.log(`Creating user: ${JSON.stringify(createUserDto)}`);
+    this.logger.log(`Creating user: ${JSON.stringify(createUserDto)}`);
 
       // Check if the user already exists
       const existingUser = await this.entityManager.findOneBy(User, {
@@ -33,10 +32,6 @@ export class UsersService {
 
       this.logger.log(`User created successfully: ${savedUser.email}`);
       return savedUser;
-    } catch (error) {
-      this.logger.error('Error creating user', error.stack);
-      throw new InternalServerErrorException('Failed to create user');
-    }
   }
 
   // Finds all users
