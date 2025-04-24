@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from 'src/modules/auth/services/auth.service';
 import { LoginDto } from 'src/modules/auth/dto/login.dto';
+import { RegisterDto } from 'src/modules/auth/dto/register.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/modules/auth/decorator/public.decorator';
 
@@ -18,7 +19,12 @@ export class AuthController {
 
   @Public()
   @Post('register')
-  async register(@Body() loginDto: LoginDto) {
-    return this.authService.register(loginDto);
+  async register(@Body() registerDto: RegisterDto) {
+    return this.authService.register(registerDto);
+  }
+
+  @Post('logout')
+  async logout() {
+    return { message: 'Logout successful' }; // Basic logout response
   }
 }

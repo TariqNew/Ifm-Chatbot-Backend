@@ -32,6 +32,7 @@ async function bootstrap() {
   SwaggerModule.setup(`${apiPrefix}/docs`, app, document);
 
   await app.get(SeederService).seed();
+  console.log('Database seeding completed.');
 
   await app.listen(process.env.PORT || 3000);
 }

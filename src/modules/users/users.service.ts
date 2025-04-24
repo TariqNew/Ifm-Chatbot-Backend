@@ -12,16 +12,13 @@ export class UsersService {
     private readonly logger: LoggerService,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  async create(createUserDto: CreateUserDto) {
+    const user = this.entityManager.create(User, createUserDto);
+    return await this.entityManager.save(user);
   }
 
   async findAll() {
     return await this.entityManager.find(User);
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
   }
 
   async findByEmail(email: string) {

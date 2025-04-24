@@ -1,15 +1,15 @@
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+
 export class RegisterDto {
+  @IsNotEmpty()
+  @IsString()
   fullName: string;
+
+  @IsNotEmpty()
+  @IsEmail()
   email: string;
+
+  @IsNotEmpty()
+  @IsString()
   password: string;
-}
-export class RegisterResponseDto {
-    id: string;
-    fullName: string;
-    email: string;
-    createdAt: Date;
-    updatedAt: Date;
-    token: string;
-    refreshToken: string;
-    expiresIn: number;
 }
