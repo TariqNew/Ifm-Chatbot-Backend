@@ -27,7 +27,7 @@ export class SeederService {
         password: 'user123',
         phoneNumber: '+0987654321',
       },
-    ]; 
+    ];
 
     for (const userData of users) {
       const existingUser = await this.entityManager.findOneBy(User, {

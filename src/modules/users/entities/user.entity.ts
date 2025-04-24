@@ -17,7 +17,7 @@ export class User {
   @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true }) 
   phoneNumber: string;
 
   @OneToMany(() => Chat, (chat) => chat.user)
@@ -26,9 +26,10 @@ export class User {
   @OneToMany(() => Message, (message) => message.sender)
   messages: Message[];
 
+  @Column({ nullable: true })
   role: 'admin' | 'user' = 'user'; 
 
-  // Hash the password before saving or updating the user
+  // Hashes the password before saving or updating the user
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword() {
@@ -38,7 +39,7 @@ export class User {
     }
   }
 
-  // Verify the password
+  // Verifies the password
   async verifyPassword(plainPassword: string): Promise<boolean> {
     return bcrypt.compare(plainPassword, this.password);
   }
