@@ -15,4 +15,10 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
+
+  @Public()
+  @Post('register')
+  async register(@Body() loginDto: LoginDto) {
+    return this.authService.register(loginDto);
+  }
 }
