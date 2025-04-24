@@ -12,6 +12,7 @@ import { AuthService } from 'src/modules/auth/services/auth.service';
 import { JwtStrategy } from 'src/modules/auth/services/jwt.strategy';
 import { ChatsModule } from './modules/chats/chats.module';
 import { MessagesModule } from './modules/messages/messages.module';
+import { SearchModule } from './modules/search/search.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { MessagesModule } from './modules/messages/messages.module';
     LoggerModule,
     AuthModule,
     ChatsModule,
-    MessagesModule
+    MessagesModule,
+    SearchModule
   ],
   controllers: [AppController],
   providers: [AppService, AuthService, JwtStrategy],
