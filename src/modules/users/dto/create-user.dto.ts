@@ -23,10 +23,10 @@ export class CreateUserDto {
     example: '+1234567890',
     maxLength: 100,
   })
-  @IsNotEmpty()
+
   @IsString()
   @MaxLength(100)
-  phoneNumber: string;
+  phoneNumber?: string;
 
   @ApiProperty({
     description: 'Email address of the user.',
