@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserDto } from 'src/modules/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/modules/users/dto/update-user.dto';
 import { EntityManager, Equal } from 'typeorm';
@@ -35,7 +35,7 @@ export class UsersService {
       return savedUser;
     } catch (error) {
       this.logger.error('Error creating user', error.stack);
-      throw new Error('Failed to create user');
+      throw new InternalServerErrorException('Failed to create user');
     }
   }
 
@@ -46,7 +46,11 @@ export class UsersService {
 
   // Finds a user by email
   async findByEmail(email: string) {
-    return await this.entityManager.findOneBy(User, { email: Equal(email) });
+    const user = await this.entityManager.findOneBy(User, { email: Equal(email) });
+    if (!user) {
+      throw new NotFoundException(`User with email ${email} not found`);
+    }
+    return user;
   }
 
   // Finds a user by ID
@@ -71,7 +75,7 @@ export class UsersService {
       return updatedUser;
     } catch (error) {
       this.logger.error(`Error updating user with ID: ${id}`, error.stack);
-      throw new Error('Failed to update user');
+      throw new InternalServerErrorException('Failed to update user');
     }
   }
 
@@ -87,7 +91,7 @@ export class UsersService {
       return { message: `User with ID ${id} removed successfully` };
     } catch (error) {
       this.logger.error(`Error removing user with ID: ${id}`, error.stack);
-      throw new Error('Failed to remove user');
+      throw new InternalServerErrorException('Failed to remove user');
     }
   }
 }
