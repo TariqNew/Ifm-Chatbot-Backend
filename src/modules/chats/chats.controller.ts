@@ -9,7 +9,7 @@ export class ChatsController {
 
   @Post()
   create(@Body() createChatDto: CreateChatDto) {
-    return this.chatsService.create(createChatDto);
+    return this.chatsService.create(createChatDto, 1); // Replace `1` with the authenticated user's ID
   }
 
   @Get()
@@ -18,17 +18,17 @@ export class ChatsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.chatsService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.chatsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateChatDto: UpdateChatDto) {
-    return this.chatsService.update(+id, updateChatDto);
+  update(@Param('id') id: number, @Body() updateChatDto: UpdateChatDto) {
+    return this.chatsService.update(id, updateChatDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.chatsService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.chatsService.remove(id);
   }
 }
