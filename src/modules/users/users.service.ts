@@ -31,7 +31,8 @@ export class UsersService {
       const savedUser = await this.entityManager.save(user);
 
       this.logger.log(`User created successfully: ${savedUser.email}`);
-      return savedUser;
+      const { password, ...result } = savedUser;
+      return result;
   }
 
   // Finds all users
