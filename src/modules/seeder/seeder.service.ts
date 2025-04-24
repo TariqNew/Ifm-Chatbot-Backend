@@ -21,11 +21,13 @@ export class SeederService {
         fullName: 'Admin User',
         email: 'admin@example.com',
         password: 'admin123',
+        phoneNumber: '+1234567890',
       },
       {
         fullName: 'Regular User',
         email: 'user@example.com',
         password: 'user123',
+        phoneNumber: '+0987654321',
       },
     ];
 
