@@ -8,8 +8,10 @@ import { User } from '../users/entities/user.entity';
 @Injectable()
 export class SearchService {
   constructor(private readonly entityManager: EntityManager){}
-  create(createSearchDto: CreateSearchDto) {
-    return 'This action adds a new search';
+  searchAll(q:string){
+    const searchResults = this.entityManager.createQueryBuilder(Search,'s').where('s.name LIKE :name',{
+      name:`%${q}%`,
+    }).getMany()
   }
   async  userSearch(q:string):Promise<User[]>{
     const users = await this.entityManager.createQueryBuilder(User,'u').where('u.fullName LIKE :name',{

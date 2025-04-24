@@ -8,9 +8,9 @@ import { User } from '../users/entities/user.entity';
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
-  @Post()
-  create(@Body() createSearchDto: CreateSearchDto) {
-    return this.searchService.create(createSearchDto);
+  @Get()
+  searchAll(@Query('q') q: string): Promise<User[]> {
+    return this.searchService.searchAll(q);
   }
   @Get('/users')
   search(@Query('q') q: string): Promise<User[]> {
