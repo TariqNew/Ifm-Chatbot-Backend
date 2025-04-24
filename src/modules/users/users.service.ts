@@ -13,6 +13,15 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    this.logger.log('Creating user'+ createUserDto);
+    const existingUser = await this.entityManager.findOneBy(User, {
+      email: Equal(createUserDto.email),
+    });
+    if (existingUser) {
+      this.logger.warn('User already exists'+ createUserDto.email);
+      throw new Error('User already exists');
+    }
+    this.logger.log('Creating new user'+ createUserDto);
     const user = this.entityManager.create(User, createUserDto);
     return await this.entityManager.save(user);
   }
