@@ -34,9 +34,16 @@ export class AuthService {
     };
   }
 
-  async register(registerDto: RegisterDto) {
+  async register(registerDto: RegisterDto) {//TODO: Put all this in the users service
     const user = await this.usersService.create(registerDto);
     const payload = { sub: user.id, email: user.email };
+    if (!user) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+    const existingUser = await this.usersService.findByEmail(registerDto.email);
+    if (existingUser) {
+      throw new UnauthorizedException('User already exists');
+    }
     return {
       user,
       access_token: this.jwtService.sign(payload),

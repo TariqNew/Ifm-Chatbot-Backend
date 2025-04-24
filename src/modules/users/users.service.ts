@@ -10,11 +10,24 @@ export class UsersService {
   constructor(
     private readonly entityManager: EntityManager,
     private readonly logger: LoggerService,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto) {
-    const user = this.entityManager.create(User, createUserDto);
-    return await this.entityManager.save(user);
+    try {
+      this.logger.log('Creating user' + createUserDto);
+      const existingUser = await this.entityManager.findOneBy(User, {
+        email: Equal(createUserDto.email),
+      });
+      if (existingUser) {
+        this.logger.warn('User already exists' + createUserDto.email);
+        throw new Error('User already exists');
+      }
+      this.logger.log('Creating new user' + createUserDto);
+      const user = this.entityManager.create(User, createUserDto);
+      return await this.entityManager.save(user);
+    } catch (error) {
+      return error;
+    }
   }
 
   async findAll() {
