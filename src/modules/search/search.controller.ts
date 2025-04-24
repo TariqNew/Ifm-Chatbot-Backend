@@ -9,7 +9,7 @@ export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @Get()
-  searchAll(@Query('q') q: string): Promise<User[]> {
+  searchAll(@Query('q') q: string){
     return this.searchService.searchAll(q);
   }
   @Get('/users')
